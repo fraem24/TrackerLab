@@ -11,7 +11,7 @@ setuptools.setup(
     description="Package for detecting features in digital microscopy images",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/molecular-nanophotonics/TrackerLab",
+    url="https://github.com/fraem24/TrackerLab",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
