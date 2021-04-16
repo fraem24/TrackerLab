@@ -18,5 +18,5 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.ui = loadUi('trackerlab/app.ui', self)        
+        self.ui = loadUi('app.ui', self)        
     
