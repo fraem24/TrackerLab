@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="trackerlab",
-    version="0.0.3",
+    version="0.0.4",
     author="Martin",
     author_email="martin.fraenzl@physik.uni-leipzig.de",
     description="Package for detecting features in digital microscopy images",
@@ -18,5 +18,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    include_package_data = True, # http://peak.telecommunity.com/DevCenter/setuptools#including-data-files
     #python_requires='>=3.6',
 )
