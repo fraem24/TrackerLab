@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="trackerlab",
-    version="0.0.1",
+    version="0.0.3",
     author="Martin",
     author_email="martin.fraenzl@physik.uni-leipzig.de",
     description="Package for detecting features in digital microscopy images",
