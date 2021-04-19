@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
 """
-Discription: TrackLab of the Molecular Nanophotonics.
-Author(s): M. Fränzl, N. Söker
-Data: 18/09/18
+Discription: TrackLab of the Molecular Nanophotonics Group
+Author(s): M. Fränzl
+Data: 19/04/21
 """
 
 import os

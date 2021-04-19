@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Apr 15 09:00:38 2021
-
-@author: Martin Fränzl
+Discription: TrackLab of the Molecular Nanophotonics Group
+Author(s): M. Fränzl
+Data: 19/04/21
 """
 
 import numpy as np

@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Discription: TrackLab of the Molecular Nanophotonics Group
+Author(s): M. Fränzl
+Data: 19/04/21
+"""
+
 import numpy as np
 
 import nptdms
@@ -10,7 +17,7 @@ def read_tdms_video(file):
     Arguments:
         file (string): The path to the TDMS file.
     Returns:
-        images (2D array): The image series data. 
+        images (3D array): The image series data. 
         metadata (pandas DataFrame): A pandas DataFrame with the metadata. 
     """
     
@@ -42,7 +49,7 @@ def read_tiff_stack(file):
     Arguments:
         file (string): The path to the TIFF file.
     Returns:
-        images (2D array): The image series data. 
+        images (3D array): The image series data. 
         metadata (pandas DataFrame): A pandas DataFrame with the metadata. 
     """
     images = io.imread(file)
@@ -64,7 +71,7 @@ def read_mp4_video(file):
     Arguments:
         file (string): The path to the TIFF file.
     Returns:
-        images (2D array): The image series data. 
+        images (3D array): The image series data. 
         metadata (pandas DataFrame): A pandas DataFrame with the metadata. 
     """
     

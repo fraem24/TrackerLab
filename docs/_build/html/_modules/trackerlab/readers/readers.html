@@ -149,7 +149,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for trackerlab.readers.readers</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Discription: TrackLab of the Molecular Nanophotonics Group</span>
+<span class="sd">Author(s): M. Fränzl</span>
+<span class="sd">Data: 19/04/21</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">nptdms</span>
 <span class="kn">import</span> <span class="nn">imageio</span>
@@ -161,7 +168,7 @@
 <span class="sd">    Arguments:</span>
 <span class="sd">        file (string): The path to the TDMS file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        images (2D array): The image series data. </span>
+<span class="sd">        images (3D array): The image series data. </span>
 <span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -193,7 +200,7 @@
 <span class="sd">    Arguments:</span>
 <span class="sd">        file (string): The path to the TIFF file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        images (2D array): The image series data. </span>
+<span class="sd">        images (3D array): The image series data. </span>
 <span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">images</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
@@ -215,7 +222,7 @@
 <span class="sd">    Arguments:</span>
 <span class="sd">        file (string): The path to the TIFF file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        images (2D array): The image series data. </span>
+<span class="sd">        images (3D array): The image series data. </span>
 <span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
