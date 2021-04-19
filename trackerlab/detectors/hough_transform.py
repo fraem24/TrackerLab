@@ -19,13 +19,14 @@ def hough_transform(image, sigma, low_threshold, high_threshold, min_radius, max
     Arguments:
         image (2D array): Image data. \n
         sigma (float): Sigma value for the Canny edge detector. \n
-        low_threshold (int): Minimum radius in pixels.
-        high_threshold (int): Maximum radius in pixels.
-        min_radius (int): Minimum radius in pixels.
-        max_radius (int): Maximum radius in pixels.
+        low_threshold (int): Minimum radius in pixels. \n
+        high_threshold (int): Maximum radius in pixels. \n
+        min_radius (int): Minimum radius in pixels. \n
+        max_radius (int): Maximum radius in pixels. \n
         threshold (int): Threshold for selecting the most prominent circles.
     Returns:
-        features (pandas DataFrame): Pandas DataFrame with the detected features. 
+        features (pandas DataFrame): Pandas DataFrame with the detected features. \n
+        image_out (2D array): The output image.  
     """
     features = pd.DataFrame()
     

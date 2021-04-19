@@ -22,7 +22,7 @@ def difference_of_gaussians(image_in, min_sigma=1, max_sigma=30, sigma_ratio=1.6
         threshold (float): The absolute lower bound for scale space maxima. Local maxima smaller than threshold are ignored. Reduce to detect blobs with less intensities. \n
         overlap (float): A value between 0 and 1. If the area of two features overlaps by a fraction greater than threshold, the smaller feature is eliminated. \n
     Returns:
-        features (pandas DataFrame): A pandas DataFrame with the detected features.\n
+        features (pandas DataFrame): A pandas DataFrame with the detected features. \n
         image_out (2D array): The output image. 
     """
     

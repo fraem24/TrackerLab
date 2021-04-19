@@ -19,7 +19,8 @@ def connected_components(image, threshold, min_area, max_area, max_features, inv
         threshold (float): The threshold value. \n
         ...
     Returns:
-        features (pandas DataFrame): A pandas DataFrame with the detected features. 
+        features (pandas DataFrame): A pandas DataFrame with the detected features. \n
+        image_out (2D array): The output image.  
     """
     features = pd.DataFrame()
     
