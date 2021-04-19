@@ -159,14 +159,53 @@
 <div class="toctree-wrapper compound">
 </div>
 <span class="target" id="module-trackerlab.readers"></span><dl class="py function">
+<dt id="trackerlab.readers.read_avi_video">
+<code class="sig-prename descclassname">trackerlab.readers.</code><code class="sig-name descname">read_avi_video</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trackerlab/readers/readers.html#read_avi_video"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackerlab.readers.read_avi_video" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read AVI video file.</p>
+<dl>
+<dt>Arguments:</dt><dd><p>file (string): The path to the AVI file.</p>
+</dd>
+<dt>Returns:</dt><dd><p>images (3D array): The image series data.</p>
+<p>metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="trackerlab.readers.read_jpg_image">
+<code class="sig-prename descclassname">trackerlab.readers.</code><code class="sig-name descname">read_jpg_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trackerlab/readers/readers.html#read_jpg_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackerlab.readers.read_jpg_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read JPG file.</p>
+<dl>
+<dt>Arguments:</dt><dd><p>file (string): The path to the JPG file.</p>
+</dd>
+<dt>Returns:</dt><dd><p>images (2D array): The image data.</p>
+<p>metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="trackerlab.readers.read_mp4_video">
 <code class="sig-prename descclassname">trackerlab.readers.</code><code class="sig-name descname">read_mp4_video</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trackerlab/readers/readers.html#read_mp4_video"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackerlab.readers.read_mp4_video" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read MP4 video file.</p>
-<dl class="simple">
-<dt>Arguments:</dt><dd><p>file (string): The path to the TIFF file.</p>
+<dl>
+<dt>Arguments:</dt><dd><p>file (string): The path to the MP4 file.</p>
 </dd>
-<dt>Returns:</dt><dd><p>images (3D array): The image series data. 
-metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
+<dt>Returns:</dt><dd><p>images (3D array): The image series data.</p>
+<p>metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="trackerlab.readers.read_png_image">
+<code class="sig-prename descclassname">trackerlab.readers.</code><code class="sig-name descname">read_png_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trackerlab/readers/readers.html#read_png_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackerlab.readers.read_png_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read PNG file.</p>
+<dl>
+<dt>Arguments:</dt><dd><p>file (string): The path to the PNG file.</p>
+</dd>
+<dt>Returns:</dt><dd><p>images (2D array): The image data.</p>
+<p>metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -175,11 +214,11 @@ metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
 <dt id="trackerlab.readers.read_tdms_video">
 <code class="sig-prename descclassname">trackerlab.readers.</code><code class="sig-name descname">read_tdms_video</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trackerlab/readers/readers.html#read_tdms_video"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackerlab.readers.read_tdms_video" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read TDMS video file.</p>
-<dl class="simple">
+<dl>
 <dt>Arguments:</dt><dd><p>file (string): The path to the TDMS file.</p>
 </dd>
-<dt>Returns:</dt><dd><p>images (3D array): The image series data. 
-metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
+<dt>Returns:</dt><dd><p>images (3D array): The image series data.</p>
+<p>metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -188,11 +227,11 @@ metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
 <dt id="trackerlab.readers.read_tiff_stack">
 <code class="sig-prename descclassname">trackerlab.readers.</code><code class="sig-name descname">read_tiff_stack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trackerlab/readers/readers.html#read_tiff_stack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trackerlab.readers.read_tiff_stack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read TIFF stack file.</p>
-<dl class="simple">
+<dl>
 <dt>Arguments:</dt><dd><p>file (string): The path to the TIFF file.</p>
 </dd>
-<dt>Returns:</dt><dd><p>images (3D array): The image series data. 
-metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
+<dt>Returns:</dt><dd><p>images (3D array): The image series data.</p>
+<p>metadata (pandas DataFrame): A pandas DataFrame with the metadata.</p>
 </dd>
 </dl>
 </dd></dl>

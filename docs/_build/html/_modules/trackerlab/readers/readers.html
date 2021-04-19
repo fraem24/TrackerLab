@@ -168,7 +168,7 @@
 <span class="sd">    Arguments:</span>
 <span class="sd">        file (string): The path to the TDMS file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        images (3D array): The image series data. </span>
+<span class="sd">        images (3D array): The image series data. \n</span>
 <span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -200,7 +200,7 @@
 <span class="sd">    Arguments:</span>
 <span class="sd">        file (string): The path to the TIFF file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        images (3D array): The image series data. </span>
+<span class="sd">        images (3D array): The image series data. \n</span>
 <span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">images</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
@@ -220,9 +220,9 @@
 <span class="sd">    Read MP4 video file.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        file (string): The path to the TIFF file.</span>
+<span class="sd">        file (string): The path to the MP4 file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        images (3D array): The image series data. </span>
+<span class="sd">        images (3D array): The image series data. \n</span>
 <span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -231,6 +231,77 @@
     <span class="n">dimy</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">get_meta_data</span><span class="p">()[</span><span class="s1">&#39;size&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">frames</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">count_frames</span><span class="p">()</span>
     <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">video</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">i</span><span class="p">)[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">frames</span><span class="p">)])</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;dimx&quot;</span><span class="p">:</span> <span class="n">dimx</span><span class="p">,</span>
+        <span class="s2">&quot;dimy&quot;</span><span class="p">:</span> <span class="n">dimy</span><span class="p">,</span>
+        <span class="s2">&quot;frames&quot;</span><span class="p">:</span> <span class="n">frames</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">images</span><span class="p">,</span> <span class="n">metadata</span></div>
+
+
+<div class="viewcode-block" id="read_avi_video"><a class="viewcode-back" href="../../../index.html#trackerlab.readers.read_avi_video">[docs]</a><span class="k">def</span> <span class="nf">read_avi_video</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read AVI video file.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        file (string): The path to the AVI file.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        images (3D array): The image series data. \n</span>
+<span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">video</span> <span class="o">=</span> <span class="n">imageio</span><span class="o">.</span><span class="n">get_reader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">dimx</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">get_meta_data</span><span class="p">()[</span><span class="s1">&#39;size&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dimy</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">get_meta_data</span><span class="p">()[</span><span class="s1">&#39;size&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="n">video</span><span class="o">.</span><span class="n">count_frames</span><span class="p">()</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">video</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">i</span><span class="p">)[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">frames</span><span class="p">)])</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;dimx&quot;</span><span class="p">:</span> <span class="n">dimx</span><span class="p">,</span>
+        <span class="s2">&quot;dimy&quot;</span><span class="p">:</span> <span class="n">dimy</span><span class="p">,</span>
+        <span class="s2">&quot;frames&quot;</span><span class="p">:</span> <span class="n">frames</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">images</span><span class="p">,</span> <span class="n">metadata</span></div>
+
+
+<div class="viewcode-block" id="read_png_image"><a class="viewcode-back" href="../../../index.html#trackerlab.readers.read_png_image">[docs]</a><span class="k">def</span> <span class="nf">read_png_image</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read PNG file.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        file (string): The path to the PNG file.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        images (2D array): The image data. \n</span>
+<span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">dimx</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dimy</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:,:]</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;dimx&quot;</span><span class="p">:</span> <span class="n">dimx</span><span class="p">,</span>
+        <span class="s2">&quot;dimy&quot;</span><span class="p">:</span> <span class="n">dimy</span><span class="p">,</span>
+        <span class="s2">&quot;frames&quot;</span><span class="p">:</span> <span class="n">frames</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">return</span> <span class="n">images</span><span class="p">,</span> <span class="n">metadata</span></div>
+
+
+<div class="viewcode-block" id="read_jpg_image"><a class="viewcode-back" href="../../../index.html#trackerlab.readers.read_jpg_image">[docs]</a><span class="k">def</span> <span class="nf">read_jpg_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read JPG file.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        file (string): The path to the JPG file.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        images (2D array): The image data. \n</span>
+<span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">dimx</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dimy</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:,:]</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;dimx&quot;</span><span class="p">:</span> <span class="n">dimx</span><span class="p">,</span>
         <span class="s2">&quot;dimy&quot;</span><span class="p">:</span> <span class="n">dimy</span><span class="p">,</span>

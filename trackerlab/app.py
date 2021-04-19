@@ -22,3 +22,4 @@ class MainWindow(QMainWindow):
 
         self.ui = loadUi(path + '/app.ui', self)        
     
+
