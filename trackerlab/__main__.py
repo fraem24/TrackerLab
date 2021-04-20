@@ -9,8 +9,12 @@ Data: 18/09/18
 import sys
 from PyQt5.QtWidgets import QApplication
 
-from trackerlab import app
-    
+try:
+    import app 
+except:
+    from trackerlab import app
+
+
 if __name__ == '__main__':
     a = QApplication(sys.argv)
     window = app.MainWindow()

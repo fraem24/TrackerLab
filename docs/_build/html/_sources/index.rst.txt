@@ -14,6 +14,8 @@ Welcome to trackerlab's documentation!
     :members:
 .. automodule:: trackerlab.detectors
     :members:
+.. automodule:: trackerlab.utils
+    :members:
 
 Indices and tables
 ==================
