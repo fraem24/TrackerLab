@@ -6,14 +6,11 @@ Author(s): M. Fränzl, N. Söker
 Data: 18/09/18
 """
 
-import sys
+import sys, os
 from PyQt5.QtWidgets import QApplication
 
-try:
-    import app 
-except:
-    from trackerlab import app
-
+sys.path.append('..')
+from trackerlab import app
 
 if __name__ == '__main__':
     a = QApplication(sys.argv)

@@ -160,7 +160,30 @@
 
 <span class="kn">import</span> <span class="nn">nptdms</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-    
+
+<div class="viewcode-block" id="analyse_tdms"><a class="viewcode-back" href="../../../index.html#trackerlab.utils.analyse_tdms">[docs]</a><span class="k">def</span> <span class="nf">analyse_tdms</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print properties and channels of a TDMS file.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        file (string): The path to the TDMS file.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Print properties and channels of TDMS file</span>
+    <span class="n">tdms_file</span> <span class="o">=</span> <span class="n">nptdms</span><span class="o">.</span><span class="n">TdmsFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Properties (Root):&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">tdms_file</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">tdms_file</span><span class="o">.</span><span class="n">groups</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39;Properties (&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">channels</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">channel</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+  
 <div class="viewcode-block" id="read_csv_features"><a class="viewcode-back" href="../../../index.html#trackerlab.utils.read_csv_features">[docs]</a><span class="k">def</span> <span class="nf">read_csv_features</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read CSV features file (\*_features.csv) generated from TrackerLab.</span>
@@ -182,31 +205,35 @@
             <span class="n">row_count</span> <span class="o">+=</span> <span class="mi">1</span>
             
     <span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_count</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_count</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_count</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">features</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">protocol</span></div>
+
     
-    
-<div class="viewcode-block" id="analyse_tdms"><a class="viewcode-back" href="../../../index.html#trackerlab.utils.analyse_tdms">[docs]</a><span class="k">def</span> <span class="nf">analyse_tdms</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">read_hdf5_features</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print properties and channels of a TDMS file.</span>
+<span class="sd">    Read HDF5 features file (\*_features.csv) generated from TrackerLab.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        file (string): The path to the TDMS file.</span>
+<span class="sd">        file (string): The path to the HDF5 file.</span>
 <span class="sd">    Returns:</span>
-<span class="sd">        None</span>
+<span class="sd">        features (pandas DataFrame): A pandas DataFrame with the detected features.\n</span>
+<span class="sd">        metadata (pandas DataFrame): A pandas DataFrame with the metadata.\n</span>
+<span class="sd">        protocol (string): A string containing the content of the protocol file. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Print properties and channels of TDMS file</span>
-    <span class="n">tdms_file</span> <span class="o">=</span> <span class="n">TdmsFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Properties (Root):&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">tdms_file</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">tdms_file</span><span class="o">.</span><span class="n">groups</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39;Properties (&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">group</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">channels</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">channel</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+    <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">HDFStore</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">as</span> <span class="n">store</span><span class="p">:</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">store</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="n">store</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;records&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">protocol</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">store</span><span class="p">[</span><span class="s2">&quot;protocol&quot;</span><span class="p">]:</span>
+                <span class="n">protocol</span> <span class="o">+=</span> <span class="n">line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">store</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">features</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">protocol</span>
+    
+    
 
 </pre></div>
 

@@ -9,6 +9,8 @@ import os, sys
 import numpy as np
 import glob, fnmatch
 
+path = os.path.dirname(os.path.realpath(__file__)) + "/"
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QWidget, QDialog
 from PyQt5.uic import loadUi
@@ -16,21 +18,32 @@ from PyQt5.uic import loadUi
 import pyqtgraph as pg
 #import pyqtgraph.exporters
 
-try:
-    import readers 
-except:
-    from trackerlab import readers
+################################################################################
+#sys.path.append('..')
+from trackerlab import readers
+################################################################################
 
+import importlib
+
+moduleNames = []
+for m in os.listdir(path + "modules"):
+    if os.path.isdir(os.path.join(path + "modules", m)) and m != "utils" and m != "template" and m != "__pycache__":
+       moduleNames.append(m)
+
+moduleList = []
+for moduleName in moduleNames:
+    moduleList.append(importlib.import_module("trackerlab.app.modules." + moduleName + '.' + moduleName))
+    
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         
-        path = os.path.dirname(os.path.realpath(__file__))
+        #path = os.path.dirname(os.path.realpath(__file__))
 
-        self.ui = loadUi(path + '/app.ui', self) 
+        self.ui = loadUi(path + "app.ui", self) 
         
-        self.displayedIcon = QtGui.QIcon(QtGui.QPixmap(path + "/resources/circle.png")) 
+        self.displayedIcon = QtGui.QIcon(QtGui.QPixmap(path + "resources/circle.png")) 
 
         pg.setConfigOption('background', 'w')
         pg.setConfigOption('foreground', 0.75)
@@ -99,7 +112,7 @@ class MainWindow(QMainWindow):
         ################################################################################
         self.colormaps = []
         self.colormapComboBox.clear()
-        for file in glob.glob(path + '/colormaps/*.csv'):
+        for file in glob.glob(path + 'colormaps/*.csv'):
             self.colormapComboBox.addItem(os.path.splitext(os.path.basename(file))[0])
             self.colormaps.append(np.loadtxt(file, delimiter=','))
                
@@ -120,6 +133,25 @@ class MainWindow(QMainWindow):
         self.levelMaxSlider.valueChanged.connect(self.levelMaxSliderChanged)   
         self.levelMaxSpinBox.valueChanged.connect(self.levelMaxSpinBoxChanged)  
         
+        ################################################################################
+        # Setup the "Modules" panel
+        ################################################################################
+        self.modules = []
+        for module in moduleList:
+            self.modules.append(module.Module())
+        
+        for module, moduleName in zip(self.modules, moduleNames):
+            displayedName = moduleName.replace("_", " ").title() # Replace "_" with " " + title case 
+            self.modulesComboBox.addItem(displayedName)
+            self.moduleLayout.addWidget(module.widget)
+            module.widget.hide()
+            
+        self.moduleIndex = 0
+        self.modules[self.moduleIndex].widget.show()
+        self.modulesComboBox.currentIndexChanged.connect(self.moduleIndexChanged) 
+
+        self.modules[self.moduleIndex].attach(self.p2)
+        self.modules[self.moduleIndex].updated.connect(self.update)
     
     
     def update(self):
@@ -131,6 +163,22 @@ class MainWindow(QMainWindow):
         else:
             self.im1.setImage(self.image1, levels=[self.levelMinSpinBox.value(), self.levelMaxSpinBox.value()])             
         
+        # Filters, ROI, ... 
+        self.image2 = self.image1
+        
+        #features = pd.DataFrame()
+        if self.featureDetectionCheckBox.checkState():
+            self.im2.setImage(self.image2)
+            features = self.modules[self.moduleIndex].findFeatures(self.frameSlider.value(), self.im2)
+        else:
+            if self.scalingComboBox.currentIndex() == 0:
+                self.im2.setImage(self.image2)
+            else:
+                self.im2.setImage(self.image2, levels=[self.cminSlider.value(), self.cmaxSlider.value()])
+        
+        #if self.batch:
+        #    self.features = self.features.append(features)
+            
 
     def frameSliderChanged(self, value):
         self.frameSpinBox.setValue(value)
@@ -286,6 +334,15 @@ class MainWindow(QMainWindow):
         self.statusBar.showMessage('Ready')
 
 
+    def moduleIndexChanged(self):
+        self.modules[self.moduleIndex].detach()
+        self.modules[self.moduleIndex].widget.hide()
+        self.moduleIndex = self.modulesComboBox.currentIndex()
+        self.modules[self.moduleIndex].widget.show()
+        self.modules[self.moduleIndex].updated.connect(self.update)
+        self.modules[self.moduleIndex].attach(self.p2)
+        self.update()
+        
     def setEnabled(self, state):
         self.fileListWidget.setEnabled(state)
         self.frameSlider.setEnabled(state)
@@ -333,4 +390,3 @@ class MainWindow(QMainWindow):
                      "<a href='http://github.com/Molecular-Nanophotonics/TrackerLab'>http://github.com/molecular-nanophotonics/trackerlab</a>" + 2*"<br>" +
                      "M. Fränzl")
        about.exec()
-       
