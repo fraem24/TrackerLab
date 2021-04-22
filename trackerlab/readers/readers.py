@@ -24,19 +24,24 @@ def read_tdms_video(file):
     tdms_file = nptdms.TdmsFile(file)
     p = tdms_file.properties 
     
-    dimx = int(p['dimx'])
-    dimy = int(p['dimy'])
-    frames = int(p['dimz'])
-    exposure = float(p['exposure'])
-    binning = int(p['binning'])
-
-    metadata = {
-        "dimx": dimx,
-        "dimy": dimy,
-        "frames": frames,
-        "exposure": exposure,
-        "binning": binning,
-        }
+    metadata = {}
+    for name, value in tdms_file.properties.items():
+ 
+        if value.isdigit(): # Check if values is an integer.
+            metadata[name] = int(value)
+        else:
+            try:
+                metadata[name] = float(value) # Check if value can be converted to float.
+            except:
+                metadata[name] = value # If not, value is a string.
+                
+    dimx = metadata['dimx']
+    dimy = metadata['dimy']
+    
+    try:
+        frames = metadata['frames']
+    except:
+        frames = metadata['dimz'] # Backward compatibility
     
     images = tdms_file['Image']['Image'].data
     return images.reshape(frames, dimx, dimy), metadata
