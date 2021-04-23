@@ -175,19 +175,24 @@
     <span class="n">tdms_file</span> <span class="o">=</span> <span class="n">nptdms</span><span class="o">.</span><span class="n">TdmsFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">tdms_file</span><span class="o">.</span><span class="n">properties</span> 
     
-    <span class="n">dimx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;dimx&#39;</span><span class="p">])</span>
-    <span class="n">dimy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;dimy&#39;</span><span class="p">])</span>
-    <span class="n">frames</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;dimz&#39;</span><span class="p">])</span>
-    <span class="n">exposure</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;exposure&#39;</span><span class="p">])</span>
-    <span class="n">binning</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;binning&#39;</span><span class="p">])</span>
-
-    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;dimx&quot;</span><span class="p">:</span> <span class="n">dimx</span><span class="p">,</span>
-        <span class="s2">&quot;dimy&quot;</span><span class="p">:</span> <span class="n">dimy</span><span class="p">,</span>
-        <span class="s2">&quot;frames&quot;</span><span class="p">:</span> <span class="n">frames</span><span class="p">,</span>
-        <span class="s2">&quot;exposure&quot;</span><span class="p">:</span> <span class="n">exposure</span><span class="p">,</span>
-        <span class="s2">&quot;binning&quot;</span><span class="p">:</span> <span class="n">binning</span><span class="p">,</span>
-        <span class="p">}</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">tdms_file</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+ 
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span> <span class="c1"># Check if values is an integer.</span>
+            <span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="c1"># Check if value can be converted to float.</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span> <span class="c1"># If not, value is a string.</span>
+                
+    <span class="n">dimx</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;dimx&#39;</span><span class="p">]</span>
+    <span class="n">dimy</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;dimy&#39;</span><span class="p">]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;dimz&#39;</span><span class="p">]</span> <span class="c1"># Backward compatibility</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;frames&#39;</span><span class="p">]</span> 
     
     <span class="n">images</span> <span class="o">=</span> <span class="n">tdms_file</span><span class="p">[</span><span class="s1">&#39;Image&#39;</span><span class="p">][</span><span class="s1">&#39;Image&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
     <span class="k">return</span> <span class="n">images</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">dimx</span><span class="p">,</span> <span class="n">dimy</span><span class="p">),</span> <span class="n">metadata</span></div>

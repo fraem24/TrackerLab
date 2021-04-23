@@ -39,9 +39,9 @@ def read_tdms_video(file):
     dimy = metadata['dimy']
     
     try:
-        frames = metadata['frames']
-    except:
         frames = metadata['dimz'] # Backward compatibility
+    except:
+        frames = metadata['frames'] 
     
     images = tdms_file['Image']['Image'].data
     return images.reshape(frames, dimx, dimy), metadata

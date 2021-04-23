@@ -11,13 +11,15 @@ from skimage.feature import blob_dog
 import pandas as pd
 
 import os
+path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
-from PyQt5.uic import loadUi
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import pyqtSignal
-from PyQt5 import QtWidgets
+from PyQt5.uic import loadUi
+
 import pyqtgraph as pg
 
-from ..utils import pgutils
+from ..utils import pgutils, helpwidget
 from ..utils.settings import saveSettings, restoreSettings
 
 from trackerlab.detectors import difference_of_gaussians
@@ -31,7 +33,14 @@ class Module(QtWidgets.QWidget):
         
         loadUi(os.path.splitext(os.path.relpath(__file__))[0] + '.ui', self)
         self.settingsFile = os.path.splitext(os.path.relpath(__file__))[0] + '.ini'
+        
+        self.helpWidget = helpwidget.HelpWidget()
+        self.helpButton.clicked.connect(self.helpWidget.show)
+        self.helpWidget.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        
+        self.helpWidget.textEdit.setText('\n'.join([line.strip() for line in difference_of_gaussians.__doc__.split('\n')]))
 
+        
         self.minSigmaSpinBox.valueChanged.connect(self.updated.emit)
         self.maxSigmaSpinBox.valueChanged.connect(self.updated.emit)
         self.sigmaRatioDoubleSpinBox.valueChanged.connect(self.updated.emit)
@@ -39,9 +48,7 @@ class Module(QtWidgets.QWidget):
         self.overlapDoubleSpinBox.valueChanged.connect(self.updated.emit)
         
         self.showOverlayCheckBox.stateChanged.connect(self.updated.emit)
-        
-        self.helpButton.setToolTip(difference_of_gaussians.__doc__)  
-        
+
         
     def attach(self, plot):
         self.p = plot

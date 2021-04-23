@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>451</width>
+    <width>460</width>
     <height>200</height>
    </rect>
   </property>
@@ -242,6 +242,19 @@
     </property>
     <property name="text">
      <string>Show Overlay</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="helpButton">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>10</y>
+      <width>21</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>?</string>
     </property>
    </widget>
   </widget>

@@ -300,7 +300,11 @@ class MainWindow(QMainWindow):
         
         self.dimx = self.metadata['dimx']
         self.dimy = self.metadata['dimy']
-        self.frames = self.metadata['frames']
+        
+        try:
+            self.frames = self.metadata['dimz'] # Backward compatibility
+        except:
+            self.frames = self.metadata['frames'] 
         
         self.infoLabel.setText('Dimensions: ' + str(self.dimx) + ' x ' + str(self.dimy) + ' x ' + str(self.frames))
         
