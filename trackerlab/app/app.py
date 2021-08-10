@@ -35,6 +35,37 @@ for moduleName in moduleNames:
     moduleList.append(importlib.import_module("trackerlab.app.modules." + moduleName + '.' + moduleName))
     
 
+class MyWidget(QWidget):
+    def __init__(self, text, parent=None):
+        QWidget.__init__(self, parent)
+        self.setLayout(QtWidgets.QHBoxLayout())
+        self.buttons = []
+        vb = QtWidgets.QVBoxLayout()
+        self.layout().addLayout(vb)
+        self.btnTask1 = QPushButton("task1")
+        self.btnTask2 = QPushButton("task2")
+
+        vb.addWidget(self.btnTask1)
+        vb.addWidget(self.btnTask2)
+
+        self.buttons.append(self.btnTask1)
+        self.buttons.append(self.btnTask2)
+
+        self.btnTask3 = QPushButton("task3")
+        self.btnTask4 = QPushButton("task4")
+        self.btnTask5 = QPushButton("task5")
+        self.btnTask6 = QPushButton("task6")
+        self.layout().addWidget(self.btnTask3)
+        self.layout().addWidget(self.btnTask4)
+        self.layout().addWidget(self.btnTask5)
+        self.layout().addWidget(self.btnTask6)
+
+        self.buttons.append(self.btnTask3)
+        self.buttons.append(self.btnTask4)
+        self.buttons.append(self.btnTask5)
+        self.buttons.append(self.btnTask6)
+        
+        
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -125,8 +156,7 @@ class MainWindow(QMainWindow):
         
         ################################################################################
         # Scaling/Levels
-        ################################################################################
-        
+        ################################################################################    
         self.scalingComboBox.currentIndexChanged.connect(self.scalingComboBoxChanged) 
         self.levelMinSlider.valueChanged.connect(self.levelMinSliderChanged)   
         self.levelMinSpinBox.valueChanged.connect(self.levelMinSpinBoxChanged)  
@@ -152,8 +182,38 @@ class MainWindow(QMainWindow):
 
         self.modules[self.moduleIndex].attach(self.p2)
         self.modules[self.moduleIndex].updated.connect(self.update)
+        
+        ################################################################################
+        # Pre-Processing List
+        ################################################################################
+        widget =  QWidget()
+        button1 =  QtWidgets.QCheckBox("Median Filter:")
+        button2 =  QtWidgets.QSpinBox()
+        layout =  QtWidgets.QHBoxLayout() 
+        layout.addWidget(button1)
+        layout.addWidget(button2)
+        widget.setLayout(layout)
+
+        #widget = MyWidget("Test");
+        item = QtGui.QListWidgetItem()
+        self.listWidget.insertItem(0, item)
+        self.listWidget.setItemWidget(item, widget)
+        item.setSizeHint(widget.sizeHint())
     
-    
+        widget =  QWidget()
+        button1 =  QtWidgets.QCheckBox("Mask")
+        button2 =  QtWidgets.QComboBox()
+        layout =  QtWidgets.QHBoxLayout() 
+        layout.addWidget(button1)
+        layout.addWidget(button2)
+        widget.setLayout(layout)
+
+        #widget = MyWidget("Test");
+        item = QtGui.QListWidgetItem()
+        self.listWidget.insertItem(0, item)
+        self.listWidget.setItemWidget(item, widget)
+        item.setSizeHint(widget.sizeHint())
+        
     def update(self):
         
         self.image1 = self.images[self.frameSlider.value()]
@@ -187,7 +247,6 @@ class MainWindow(QMainWindow):
     def frameSpinBoxChanged(self, value):
         self.frameSlider.setValue(value)
         
-
     def colormapComboBoxChanged(self, value):
         if self.colormaps:
             self.im1.setLookupTable(self.colormaps[value])
@@ -203,8 +262,7 @@ class MainWindow(QMainWindow):
             else:
                 self.enableLevels(True)
             self.update()
-            
-            
+                
     def levelMinSliderChanged(self, value):
         self.levelMinSpinBox.setValue(value)
         
@@ -276,8 +334,6 @@ class MainWindow(QMainWindow):
             #self.scalingComboBox.setEnabled(True)
             
             self.enableLevels(False) 
-                
-
  
     
     def displayedItemChanged(self, value):

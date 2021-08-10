@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Discription: TrackLab of the Molecular Nanophotonics.
+Discription: TrackerLab of the Molecular Nanophotonics Group.
 Author(s): M. Fränzl
 Data: 18/09/18
 """

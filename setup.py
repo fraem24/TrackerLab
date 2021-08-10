@@ -18,7 +18,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    #package_data={'': ['*.ui',]}
+    package_data={'': ['*.ui',]},
     include_package_data = True, # http://peak.telecommunity.com/DevCenter/setuptools#including-data-files
     install_requires=["nptdms>=1.1.0",
                       "pyqtgraph==0.11.0"],

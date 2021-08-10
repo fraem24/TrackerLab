@@ -35,7 +35,7 @@ def analyse_tdms(file):
   
 def read_csv_features(file):
     """
-    Read CSV features file (\*_features.csv) generated from TrackerLab.
+    Read CSV features file (\*_features.csv) generated from the TrackerLab app.
     
     Arguments:
         file (string): The path to the CSV file.
@@ -60,7 +60,7 @@ def read_csv_features(file):
     
 def read_hdf5_features(file):
     """
-    Read HDF5 features file (\*_features.csv) generated from TrackerLab.
+    Read HDF5 features file (\*_features.h5) generated from the TrackerLab app.
     
     Arguments:
         file (string): The path to the HDF5 file.
